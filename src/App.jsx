@@ -45,6 +45,8 @@ body {
   overflow-x: hidden;
 }
 
+img, svg, video, canvas { max-width: 100%; }
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
@@ -323,6 +325,11 @@ nav.scrolled {
   font-family: var(--font-body); font-size: 0.72rem;
   font-weight: 500; letter-spacing: 0.04em;
   border-radius: 100px; border: 1px solid rgba(92,122,90,0.2);
+}
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
 /* ─── Services / Cursos ─── */
@@ -781,10 +788,16 @@ footer {
 
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding-top: 90px; }
+  nav { height: 58px; padding: 0 1rem; }
+  .nav-logo { font-size: 1.12rem; }
+  .nav-cta { padding: 0.48rem 0.95rem; font-size: 0.68rem; }
+  .section { padding: 4.5rem 1.25rem; }
+  .hero { grid-template-columns: 1fr; padding: 90px 1.25rem 3rem; gap: 2rem; min-height: auto; }
+  .hero-h1 { font-size: clamp(2.6rem, 11vw, 4rem); }
+  .hero-sub { max-width: none; }
   .hero-img-wrap { height: 360px; }
   .hero-bg-shape { display: none; }
-  .about-grid, .cta-section { grid-template-columns: 1fr; }
+  .about-grid, .mission-grid, .cta-section { grid-template-columns: 1fr; }
   .about-img-stack { height: 340px; }
   .courses-grid { grid-template-columns: 1fr; }
   .users-summary { grid-template-columns: 1fr; }
@@ -795,12 +808,49 @@ footer {
   .bento-card.wide { grid-column: span 1; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { align-items: flex-start; flex-direction: column; gap: 1rem; }
   .nav-links { display: none; }
+  .cta-section { margin: 0 1.25rem 4.5rem; padding: 3rem 1.25rem; }
 }
 @media (max-width: 600px) {
+  .hero { padding-left: 1rem; padding-right: 1rem; }
+  .hero-eyebrow { font-size: 0.64rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .hero-h1 { font-size: clamp(2.35rem, 13vw, 3.4rem); margin-bottom: 1.2rem; }
+  .hero-sub { font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.6rem; }
+  .hero-actions { display: grid; grid-template-columns: 1fr; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 0.85rem 1rem; }
+  .hero-img-wrap { height: 300px; border-radius: 18px; }
+  .hero-badge { left: 1rem; right: 1rem; bottom: 1rem; padding: 0.85rem; }
+  .hero-badge-text strong { font-size: 0.92rem; }
+  .hero-badge-text span { font-size: 0.68rem; }
+  .section { padding: 4rem 1rem; }
+  .section-title { font-size: clamp(2rem, 12vw, 2.7rem); }
+  .section-body { font-size: 0.9rem; max-width: none; }
   .stats-bar { grid-template-columns: 1fr; }
+  .stat-item { padding: 1rem 0; }
+  .about-img-stack { height: 300px; }
+  .about-img-main { width: 84%; height: 76%; }
+  .about-img-secondary { width: 62%; height: 48%; }
+  .courses-grid { border-radius: 18px; }
+  .course-card, .team-card, .users-stat, .user-card, .user-detail-card { border-radius: 16px; }
+  .course-card { padding: 1.5rem; min-width: 0; }
+  .course-meta { flex-wrap: wrap; }
+  .course-clabe-value { font-size: 0.95rem; }
+  .bento-card { border-radius: 16px; padding: 1.5rem; }
+  .bento-num { font-size: 3rem; }
+  .bento-img { width: 70%; opacity: 0.16; }
   .team-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; }
+  footer { padding: 3rem 1rem 2rem; }
+  .cta-section { margin: 0 1rem 4rem; border-radius: 20px; }
+  .ticker-sep { margin: 0 1rem; }
+}
+@media (max-width: 380px) {
+  .nav-cta { padding: 0.42rem 0.72rem; font-size: 0.62rem; }
+  .hero-h1 { font-size: 2.15rem; }
+  .hero-img-wrap { height: 260px; }
+  .hero-badge { left: 0.75rem; right: 0.75rem; bottom: 0.75rem; }
+  .course-card, .user-card, .user-detail-card { padding: 1.2rem; }
 }
 `;
 
@@ -1079,7 +1129,7 @@ export default function App() {
 
         {/* ── MISIÓN / VISIÓN ───────────────────────────────────────────── */}
         <section style={{ padding:"0 5% 5rem", background:"var(--warm-white)" }}>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.5rem" }}>
+          <div className="mission-grid">
             {[
               { label:"Misión", icon:Target, text:"Desarrollar e implementar soluciones que promuevan la sostenibilidad ambiental y social, fomentando la sustitución de prácticas insostenibles de ganadería hacia sistemas agrosilvopastoriles y de regeneración del suelo." },
               { label:"Visión", icon:Globe, text:"Ser agentes de cambio para que el campo y la producción primaria mexicana se valoren mediante prácticas sustentables, preservando la calidad de vida de los productores, la biodiversidad y mitigando el cambio climático." },
